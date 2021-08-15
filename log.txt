@@ -1,2 +1,8 @@
 Give me data..
 
+URL: /
+Timestamp: Sun Aug 15 2021 18:25:32 GMT-0400 (Eastern Daylight Time)
+
+URL: /favicon.ico
+Timestamp: Sun Aug 15 2021 18:25:33 GMT-0400 (Eastern Daylight Time)
+

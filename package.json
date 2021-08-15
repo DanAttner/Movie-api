@@ -1,7 +1,6 @@
 {
   "name": "movie-api",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/DanAttner/Movie-api/issues"
   },
-  "homepage": "https://github.com/DanAttner/Movie-api#readme"
+  "homepage": "https://github.com/DanAttner/Movie-api#readme",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
