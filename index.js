@@ -1,36 +1,86 @@
-const http = require('http'),
-  fs = require('fs'),
-  url = require('url');
+const express = require('express');
+const app = express();
 
-http.createServer((request, response) => {
-  let addr = request.url,
-    q = url.parse(addr, true),
-    filePath = '';
 
-  fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('Added to log.');
-    }
-  });
-
-  if (q.pathname.includes('documentation')) {
-    filePath = (__dirname + '/documentation.html');
-  } else {
-    filePath = 'index.html';
+//movie list
+const tarantinoMovies[
+  {
+    title: "Reservoir Dogs",
+    director: "Quentin Tarantino",
+    year: 1992
+  },
+  {
+    title: "Pulp Fiction",
+    director: "Quentin Tarantino",
+    year: 1994
+  },
+  {
+    title: "Jackie Brown",
+    director: "Quentin Tarantino",
+    year: 1997
+  },
+  {
+    title: "Kill Bill: Volume 1",
+    director: "Quentin Tarantino",
+    year: 2003
+  },
+  {
+    title: "Kill Bill: Volume 2",
+    director: "Quentin Tarantino",
+    year: 2004
+  },
+  {
+    title: "Death Proof",
+    director: "Quentin Tarantino",
+    year: 2007
+  },
+  {
+    title: "Inglourious Basterds",
+    director: "Quentin Tarantino",
+    year: 2009
+  },
+  {
+    title: "Django Unchained",
+    director: "Quentin Tarantino",
+    year: 2012
+  },
+  {
+    title: "The Hateful Eight",
+    director: "Quentin Tarantino",
+    year: 2015
+  },
+  {
+    title: "Once Upon a Time in Hollywood",
+    director: "Quentin Tarantino",
+    year: 2019
   }
+];
 
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      throw err;
-    }
+//URL logger
 
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    response.write(data);
-    response.end();
+let myLogger = (req, res, next) => {
+    console.log(req.url);
+    next();
+  };
 
-  });
+app.use(myLogger);
 
-}).listen(8080);
-console.log('My test server is running on Port 8080.');
+// GET requests
+app.get('/', (req, res) => {
+  res.send('Welcome to my book club!');
+});
+
+app.get('/documentation', (req, res) => {                  
+  res.sendFile('/documentation.html', { root: __dirname });
+});
+
+app.get('/movies', (req, res) => {
+  res.json(tarantinoMovies);
+
+});
+
+
+// listen for requests
+app.listen(8080, () => {
+  console.log('Your app is listening on port 8080.');
+});
