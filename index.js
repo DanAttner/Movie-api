@@ -58,7 +58,7 @@ const tarantinoMovies = [
   }
 ];
 
-//Middleware 
+//Middleware
 
 app.use(morgan('common'));   //logs info on server requests
 app.use(express.static('public')); // sets default static path to public, although doesnt seems to work as I cannot get my 'documentation.html' file to load
@@ -79,7 +79,7 @@ app.get('/secreturl', (req, res) => {
   res.send('This is a secret url with super top-secret content.');
 });
 
-//app.get('/documentation', (req, res) => {                  
+//app.get('/documentation', (req, res) => {
 //  res.sendFile('/public/documentation.html', { root: __dirname });
 //});
 
