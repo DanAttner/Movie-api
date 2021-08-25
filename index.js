@@ -77,9 +77,7 @@ app.get("/secreturl", (req, res) => {
   res.send("This is a secret url with super top-secret content.");
 });
 
-app.get("/documentation", (req, res) => {
-  res.sendFile("/documentation.html", { root: __dirname });
-});
+app.get("/documentation.html");
 
 app.get("/movies", (req, res) => {
   res.json(tarantinoMovies);
