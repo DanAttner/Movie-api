@@ -1,21 +1,173 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Movie Test</title>
-    </head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movie Test API refrence</title>
 
+    <style>
+      td,
+      th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 10px;
+      }
+    </style>
   </head>
 
   <body>
-      <header>
-          <h2 >Movie Test</h2>
-      </header>
+    <header>
+      <h2>Movie Test</h2>
+    </header>
+    <div>
+      <table>
+        <tr>
+          <th>Description</th>
+          <th>Method</th>
+          <th>Request</th>
+          <th>Response</th>
+          <th>URL</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>Return list of all movies</td>
+          <td>GET</td>
+          <td>no request</td>
+          <td>json of all movies</td>
+          <td>"/movies"</td>
+          <td>
+            { title: "Reservoir Dogs", director: "Quentin Tarantino", year:
+            1992, samuelljackson: false, genre: ["crime", "drama", "thriller"],
+            }, { title: "Pulp Fiction", director: "Quentin Tarantino", year:
+            1994, samuelljackson: true, genre: ["crime", "drama"], }, { title:
+            "Jackie Brown", director: "Quentin Tarantino", year: 1997,
+            samuelljackson: true, genre: ["crime", "drama", "thriller"], }, {
+            title: "Kill Bill: Volume 1", director: "Quentin Tarantino", year:
+            2003, samuelljackson: false, genre: ["crime", "drama", "action"], },
+            { title: "Kill Bill: Volume 2", director: "Quentin Tarantino", year:
+            2004, samuelljackson: true, genre: ["crime", "action", "thriller"],
+            }, { title: "Death Proof", director: "Quentin Tarantino", year:
+            2007, samuelljackson: false, genre: ["action", "thriller"], }, {
+            title: "Inglourious Basterds", director: "Quentin Tarantino", year:
+            2009, samuelljackson: true, genre: ["adventure", "drama", "war"], },
+            { title: "Django Unchained", director: "Quentin Tarantino", year:
+            2012, samuelljackson: true, genre: ["drama", "western"], }, { title:
+            "The Hateful Eight", director: "Quentin Tarantino", year: 2015,
+            samuelljackson: true, genre: ["crime", "drama", "mystery"], }, {
+            title: "Once Upon a Time in Hollywood", director: "Quentin
+            Tarantino", year: 2019, samuelljackson: false, genre: ["comedy",
+            "drama"], }
+          </td>
+        </tr>
+        <tr>
+          <td>Return movie description</td>
+          <td>GET</td>
+          <td>body data for movie title</td>
+          <td>json of movie details based on title</td>
+          <td>"/movies/title"</td>
+          <td>
+            { "title": "Pulp Fiction", "director": "Quentin Tarantino", "year":
+            1994, "samuelljackson": true, "genre": [ "crime", "drama" ] }
+          </td>
+        </tr>
+        <tr>
+          <td>Return genre description</td>
+          <td>GET</td>
+          <td>body data for genre type</td>
+          <td>json of genre description</td>
+          <td>"/genres/type"</td>
+          <td>
+            action: "Action film is a film genre in which the protagonist or
+            protagonists are thrust into a series of events that typically
+            include violence, extended fighting, physical feats, rescues and
+            frantic chases. ... Common tropes of the genre include explosions,
+            car chases, fistfights and shootouts.",
+          </td>
+        </tr>
+        <tr>
+          <td>Return info about director</td>
+          <td>GET</td>
+          <td>body data for director name</td>
+          <td>json of director info</td>
+          <td>"/director/name"</td>
+          <td>
+            name: "Quentin Tarantino", bio: "Born in Knoxville, Tennessee,
+            Tarantino grew up in Los Angeles. He began his career as an
+            independent filmmaker with the release of Reservoir Dogs in 1992, a
+            crime thriller film which was in part funded by money from the sale
+            of his screenplay True Romance (1993). Empire magazine hailed
+            Reservoir Dogs as the "Greatest Independent Film of All Time". His
+            second film, Pulp Fiction (1994), a crime comedy, was a major
+            success among critics and audiences and won him numerous awards,
+            including the Palme d'Or and the Academy Award for Best Original
+            Screenplay.[3][4] He wrote the screenplay for the horror comedy film
+            From Dusk till Dawn (1996),[5] in which he also starred. Tarantino
+            paid homage to the blaxploitation films of the 1970s with Jackie
+            Brown (1997), an adaptation of Elmore Leonard's novel Rum Punch.",
+            birthday: "March 27, 1963"
+          </td>
+        </tr>
+        <tr>
+          <td>Allow user to register</td>
+          <td>POST</td>
+          <td>no request</td>
+          <td>sucess message</td>
+          <td>"/users"</td>
+          <td>Congrats you have registerd</td>
+        </tr>
+        <tr>
+          <td>Allow user to update username</td>
+          <td>PUT</td>
+          <td>body data for username</td>
+          <td>json of new username</td>
+          <td>"/users/username"</td>
+          <td>username: "test"</td>
+        </tr>
+        <tr>
+          <td>allow user to add movies to favs</td>
+          <td>PUT</td>
+          <td>body data for username and movie title</td>
+          <td>json of fav list</td>
+          <td>"/user/username/movie/:title"</td>
+          <td>favoritelist: "Pulp Fiction"</td>
+        </tr>
+        <tr>
+          <td>allow user to delete movies to favs</td>
+          <td>DELETE</td>
+          <td>body data for username and movie title</td>
+          <td>json of fav list</td>
+          <td>"/user/username/movie/:title"</td>
+          <td>favoritelist: ""</td>
+        </tr>
+        <tr>
+          <td>allow user to deregister from website</td>
+          <td>DELETE</td>
+          <td>body data for username</td>
+          <td>sucsessful response message</td>
+          <td>"/user/username"</td>
+          <td>Congrats your account has been removed</td>
+        </tr>
+      </table>
+    </div>
 
-    This is my documentation page, weeeeeeeeeeee
+    <!-- return list of all movies -->
 
+    <!-- return movie data based on title-->
 
+    <!-- return genre by title-->
 
-    </body>
+    <!-- gonna complete these later please-->
+
+    <!-- return info about director, name and birthday-->
+
+    <!-- Allow new users to register (idk)-->
+
+    <!-- Allow users to update their user info (idk)-->
+
+    <!-- Allow users to add a movie to their list of favorites (idk)-->
+
+    <!-- Allow users to remove a movie from their list of favorites-->
+
+    <!-- Allow user to deregister, and not receiving annoying spam e-mails-->
+  </body>
 </html>
