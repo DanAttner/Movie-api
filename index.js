@@ -1,113 +1,23 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = express();
 
-//movie list
-const movies = [
-  {
-    title: "Reservoir Dogs",
-    director: "Quentin Tarantino",
-    year: 1992,
-    samuelljackson: false,
-    genre: ["crime", "drama", "thriller"],
-  },
-  {
-    title: "Pulp Fiction",
-    director: "Quentin Tarantino",
-    year: 1994,
-    samuelljackson: true,
-    genre: ["crime", "drama"],
-  },
-  {
-    title: "Jackie Brown",
-    director: "Quentin Tarantino",
-    year: 1997,
-    samuelljackson: true,
-    genre: ["crime", "drama", "thriller"],
-  },
-  {
-    title: "Kill Bill: Volume 1",
-    director: "Quentin Tarantino",
-    year: 2003,
-    samuelljackson: false,
-    genre: ["crime", "drama", "action"],
-  },
-  {
-    title: "Kill Bill: Volume 2",
-    director: "Quentin Tarantino",
-    year: 2004,
-    samuelljackson: true,
-    genre: ["crime", "action", "thriller"],
-  },
-  {
-    title: "Death Proof",
-    director: "Quentin Tarantino",
-    year: 2007,
-    samuelljackson: false,
-    genre: ["action", "thriller"],
-  },
-  {
-    title: "Inglourious Basterds",
-    director: "Quentin Tarantino",
-    year: 2009,
-    samuelljackson: true,
-    genre: ["adventure", "drama", "war"],
-  },
-  {
-    title: "Django Unchained",
-    director: "Quentin Tarantino",
-    year: 2012,
-    samuelljackson: true,
-    genre: ["drama", "western"],
-  },
-  {
-    title: "The Hateful Eight",
-    director: "Quentin Tarantino",
-    year: 2015,
-    samuelljackson: true,
-    genre: ["crime", "drama", "mystery"],
-  },
-  {
-    title: "Once Upon a Time in Hollywood",
-    director: "Quentin Tarantino",
-    year: 2019,
-    samuelljackson: false,
-    genre: ["comedy", "drama"],
-  },
-];
-
-const genres = {
-  action:
-    "Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, rescues and frantic chases. ... Common tropes of the genre include explosions, car chases, fistfights and shootouts.",
-  crime:
-    "Crime film is a genre that revolves around the action of a criminal mastermind. A Crime film will often revolve around the criminal himself, chronicling his rise and fall. This genre tends to be fast paced with an air of mystery – this mystery can come from the plot or from the characters themselves",
-  drama:
-    "The drama genre features stories with high stakes and a lot of conflicts. They're plot-driven and demand that every character and scene move the story forward. Dramas follow a clearly defined narrative plot structure, portraying real-life scenarios or extreme situations with emotionally-driven characters.",
-  thriller:
-    "Thrillers are dark, engrossing, and suspenseful plot-driven stories. ... Any novel can generate excitement, suspense, interest, and exhilaration, but because these are the primary goals of the thriller genre, thriller writers have laser-focused expertise in keeping a reader interested",
-  war: "War film is a film genre concerned with warfare, typically about naval, air, or land battles, with combat scenes central to the drama.",
-  adventure:
-    "Adventure Films are exciting stories, with new experiences or exotic locales. Adventure films are very similar to the action film genre, in that they are designed to provide an action-filled, energetic experience for the film viewer.",
-  comedy:
-    "Comedy films are (make 'em laugh) films designed to elicit laughter from the audience. Comedies are light-hearted dramas, crafted to amuse, entertain, and provoke enjoyment. The comedy genre humorously exaggerates the situation, the language, action, and characters.",
-  western:
-    "Western is a genre of fiction set primarily in the latter half of the 19th and early 20th century in the Western United States, which is styled the Old West... Westerns often stress the harshness of the wilderness and frequently set the action in an arid, desolate landscape of deserts and mountains.",
-};
-
-const director = {
-  name: "Quentin Tarantino",
-  bio: "Born in Knoxville, Tennessee, Tarantino grew up in Los Angeles. He began his career as an independent filmmaker with the release of Reservoir Dogs in 1992, a crime thriller film which was in part funded by money from the sale of his screenplay True Romance (1993). Empire magazine hailed Reservoir Dogs as the (Greatest Independent Film of All Time). His second film, Pulp Fiction (1994), a crime comedy, was a major success among critics and audiences and won him numerous awards, including the Palme d'Or and the Academy Award for Best Original Screenplay.[3][4] He wrote the screenplay for the horror comedy film From Dusk till Dawn (1996),[5] in which he also starred. Tarantino paid homage to the blaxploitation films of the 1970s with Jackie Brown (1997), an adaptation of Elmore Leonard's novel Rum Punch.",
-  birthday: "March 27, 1963",
-};
-
-const users = {
-  username: "test",
-  useremail: "testguy@hotmail.com",
-  favoritelist: "",
-};
-
 //Middleware
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan("common")); //logs info on server requests
 app.use(express.static("public")); // sets default static path to public,
@@ -148,10 +58,45 @@ app.get("/director/:name", (req, res) => {
   res.send("information about director");
 });
 
-//allows user to register
+//Add a user
+/* We’ll expect JSON in this format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}*/
 app.post("/users", (req, res) => {
-  res.send("register new user");
+  res.status(201).send(req.body.Username + "aaaaaaaa");
 });
+/*
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + " already exists");
+      } else {
+        Users.create({
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
+*/
 
 //allow users to update username
 app.put("/users/:username/", (req, res) => {
