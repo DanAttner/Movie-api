@@ -36,138 +36,150 @@
           <td>json of all movies</td>
           <td>"/movies"</td>
           <td>
-            { title: "Reservoir Dogs", director: "Quentin Tarantino", year:
-            1992, samuelljackson: false, genre: ["crime", "drama", "thriller"],
-            }, { title: "Pulp Fiction", director: "Quentin Tarantino", year:
-            1994, samuelljackson: true, genre: ["crime", "drama"], }, { title:
-            "Jackie Brown", director: "Quentin Tarantino", year: 1997,
-            samuelljackson: true, genre: ["crime", "drama", "thriller"], }, {
-            title: "Kill Bill: Volume 1", director: "Quentin Tarantino", year:
-            2003, samuelljackson: false, genre: ["crime", "drama", "action"], },
-            { title: "Kill Bill: Volume 2", director: "Quentin Tarantino", year:
-            2004, samuelljackson: true, genre: ["crime", "action", "thriller"],
-            }, { title: "Death Proof", director: "Quentin Tarantino", year:
-            2007, samuelljackson: false, genre: ["action", "thriller"], }, {
-            title: "Inglourious Basterds", director: "Quentin Tarantino", year:
-            2009, samuelljackson: true, genre: ["adventure", "drama", "war"], },
-            { title: "Django Unchained", director: "Quentin Tarantino", year:
-            2012, samuelljackson: true, genre: ["drama", "western"], }, { title:
-            "The Hateful Eight", director: "Quentin Tarantino", year: 2015,
-            samuelljackson: true, genre: ["crime", "drama", "mystery"], }, {
-            title: "Once Upon a Time in Hollywood", director: "Quentin
-            Tarantino", year: 2019, samuelljackson: false, genre: ["comedy",
-            "drama"], }
+            "genre": { "name": "crime", "description": "Crime fiction is the
+            genre of fiction that deals with crimes, their detection, criminals,
+            and their motives " }, "director": { "name": "Quentin Tarantino",
+            "bio": "Quentin Jerome Tarantino is an American film director,
+            screenwriter, producer, author, film critic, and actor. His films
+            are characterized by nonlinear storylines, dark humor,
+            stylized violence, extended dialogue, ensemble casts, references
+            to popular culture, alternate history, and neo-noir. ", "birth":
+            "1963", "death": "N/A" }, "_id": "615101e0b4af8e8a40d469e1",
+            "title": "Reservoir Dogs", "description": "When a simple jewelry
+            heist goes horribly wrong, the surviving criminals begin to suspect
+            that one of them is a police informant. ", "imagepath":
+            "reservoirdogs.png", "featured": true }, { "genre": { "name":
+            "crime", "description": "Crime fiction is the genre of fiction that
+            deals with crimes, their detection, criminals, and their motives "
+            }, "director": { "name": "Quentin Tarantino", "bio": "Quentin Jerome
+            Tarantino is an American film director, screenwriter, producer,
+            author, film critic, and actor. His films are characterized
+            by nonlinear storylines, dark humor, stylized violence, extended
+            dialogue, ensemble casts, references to popular culture, alternate
+            history, and neo-noir. ", "birth": "1963", "death": "N/A" },
+            "actors": [], "_id": "6151eea1b4af8e8a40d469e2", "title": "Pulp
+            Fiction", "description": "Faced with life's cruel irony, the
+            unpredictable stories of a well-dressed pair of low-level hitmen;
+            a gangster's statuesque moll, and a double-crossing prizefighter
+            become inextricably intertwined ", "imagepath": "pulpfiction.png",
+            "featured": true }, "actors": [], etc....
           </td>
         </tr>
         <tr>
           <td>Return movie description</td>
           <td>GET</td>
-          <td>body data for movie title</td>
-          <td>json of movie details based on title</td>
+          <td>title of movie</td>
+          <td>json of one movie</td>
           <td>"/movies/title"</td>
           <td>
-            { "title": "Pulp Fiction", "director": "Quentin Tarantino", "year":
-            1994, "samuelljackson": true, "genre": [ "crime", "drama" ] }
+            { "genre": { "name": "crime", "description": "Crime fiction is the
+            genre of fiction that deals with crimes, their detection, criminals,
+            and their motives " }, "director": { "name": "Quentin Tarantino",
+            "bio": "Quentin Jerome Tarantino is an American film director,
+            screenwriter, producer, author, film critic, and actor. His films
+            are characterized by nonlinear storylines, dark humor,
+            stylized violence, extended dialogue, ensemble casts, references
+            to popular culture, alternate history, and neo-noir. ", "birth":
+            "1963", "death": "N/A" }, "actors": [], "_id":
+            "6151eea1b4af8e8a40d469e2", "title": "Pulp Fiction", "description":
+            "Faced with life's cruel irony, the unpredictable stories of a
+            well-dressed pair of low-level hitmen; a gangster's statuesque moll,
+            and a double-crossing prizefighter become inextricably intertwined
+            ", "imagepath": "pulpfiction.png", "featured": true }
           </td>
         </tr>
         <tr>
           <td>Return genre description</td>
           <td>GET</td>
-          <td>body data for genre type</td>
+          <td>name of genre</td>
           <td>json of genre description</td>
-          <td>"/genres/type"</td>
+          <td>"/genres/name"</td>
           <td>
-            action: "Action film is a film genre in which the protagonist or
-            protagonists are thrust into a series of events that typically
-            include violence, extended fighting, physical feats, rescues and
-            frantic chases. ... Common tropes of the genre include explosions,
-            car chases, fistfights and shootouts.",
+            { "_id": "6160bd50355bb7be4bb1064f", "name": "comedy",
+            "description": "A comedy film is a category of film in which the
+            main emphasis is on humor. These films are designed to make the
+            audience laugh through amusement and most often work by exaggerating
+            characteristics for humorus effect." }
           </td>
         </tr>
         <tr>
           <td>Return info about director</td>
           <td>GET</td>
-          <td>body data for director name</td>
+          <td>director name</td>
           <td>json of director info</td>
           <td>"/director/name"</td>
           <td>
-            name: "Quentin Tarantino", bio: "Born in Knoxville, Tennessee,
-            Tarantino grew up in Los Angeles. He began his career as an
-            independent filmmaker with the release of Reservoir Dogs in 1992, a
-            crime thriller film which was in part funded by money from the sale
-            of his screenplay True Romance (1993). Empire magazine hailed
-            Reservoir Dogs as the "Greatest Independent Film of All Time". His
-            second film, Pulp Fiction (1994), a crime comedy, was a major
-            success among critics and audiences and won him numerous awards,
-            including the Palme d'Or and the Academy Award for Best Original
-            Screenplay.[3][4] He wrote the screenplay for the horror comedy film
-            From Dusk till Dawn (1996),[5] in which he also starred. Tarantino
-            paid homage to the blaxploitation films of the 1970s with Jackie
-            Brown (1997), an adaptation of Elmore Leonard's novel Rum Punch.",
-            birthday: "March 27, 1963"
+            { "_id": "6160c069355bb7be4bb10653", "name": "Edgar Wright", "bio":
+            "Edgar Wright is an English film director, screenwriter and
+            producer. He is known for his fast-paced and kinetic, satirical
+            genre films, which feature extensive utilization of expressive
+            popular music, Steadicam tracking shots, dolly zooms and a signature
+            editing style that includes transitions, whip pans and wipes ",
+            "birth": "1974", "death": "N/A" }
           </td>
         </tr>
         <tr>
           <td>Allow user to register</td>
           <td>POST</td>
-          <td>no request</td>
-          <td>sucess message</td>
+          <td>body info for username, pass, email, and birth</td>
+          <td>new user json info</td>
           <td>"/users"</td>
-          <td>Congrats you have registerd</td>
+          <td>
+            { "username": "Kiff", "password": "lizard2021", "email":
+            "starrtrekfan@hotmail.com", "birthday": "2021-12-21" }
+          </td>
         </tr>
         <tr>
           <td>Allow user to update username</td>
           <td>PUT</td>
-          <td>body data for username</td>
-          <td>json of new username</td>
+          <td>
+            username and body info for username, pass, email, and birth (only
+            user and pass required)
+          </td>
+          <td>new json for user</td>
           <td>"/users/username"</td>
-          <td>username: "test"</td>
+          <td>
+            "_id": "615f54d2d76728f07de86e2a", "username": "Kiff", "password":
+            "frogman", "email": "startrekhater@hotmail.com", "birthday":
+            "2011-11-11T00:00:00.000z", "favorites": [], "__v":0
+          </td>
         </tr>
         <tr>
           <td>allow user to add movies to favs</td>
-          <td>PUT</td>
-          <td>body data for username and movie title</td>
-          <td>json of fav list</td>
-          <td>"/user/username/movie/:title"</td>
-          <td>favoritelist: "Pulp Fiction"</td>
+          <td>POST</td>
+          <td>username and movieID</td>
+          <td>json user data</td>
+          <td>"/user/username/movie/MovieID"</td>
+          <td>
+            "_id": "615f54d2d76728f07de86e22", "username": "Philip Fry",
+            "password": "test123", "email": "timewarp55@hotmail.com",
+            "birthday": "1993-12-10T00:00:00.000Z", "favorites":
+            ["6151f10ab4af8e8a40d469e1", "6151f10ab4af8e8a40d469e2",
+            "6151f10ab4af8e8a40d469e3"], "__v":0
+          </td>
         </tr>
         <tr>
           <td>allow user to delete movies to favs</td>
           <td>DELETE</td>
-          <td>body data for username and movie title</td>
-          <td>json of fav list</td>
-          <td>"/user/username/movie/:title"</td>
-          <td>favoritelist: ""</td>
+          <td>username and movieID</td>
+          <td>json user data</td>
+          <td>"/user/username/movie/MovieID"</td>
+          <td>
+            "_id": "615f54d2d76728f07de86e22", "username": "Philip Fry",
+            "password": "test123", "email": "timewarp55@hotmail.com",
+            "birthday": "1993-12-10T00:00:00.000Z", "favorites":
+            ["6151f10ab4af8e8a40d469e1", "6151f10ab4af8e8a40d469e2", ], "__v":0
+          </td>
         </tr>
         <tr>
           <td>allow user to deregister from website</td>
           <td>DELETE</td>
-          <td>body data for username</td>
-          <td>sucsessful response message</td>
+          <td>username</td>
+          <td>"username" was deleted</td>
           <td>"/user/username"</td>
-          <td>Congrats your account has been removed</td>
+          <td>Kiff was deleted</td>
         </tr>
       </table>
     </div>
-
-    <!-- return list of all movies -->
-
-    <!-- return movie data based on title-->
-
-    <!-- return genre by title-->
-
-    <!-- gonna complete these later please-->
-
-    <!-- return info about director, name and birthday-->
-
-    <!-- Allow new users to register (idk)-->
-
-    <!-- Allow users to update their user info (idk)-->
-
-    <!-- Allow users to add a movie to their list of favorites (idk)-->
-
-    <!-- Allow users to remove a movie from their list of favorites-->
-
-    <!-- Allow user to deregister, and not receiving annoying spam e-mails-->
   </body>
 </html>
