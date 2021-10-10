@@ -21,6 +21,9 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+let auth = require("./auth")(app);
+const passport = require("passport");
+require("./passport");
 
 app.use(morgan("common")); //logs info on server requests
 app.use(express.static("public")); // sets default static path to public,
@@ -38,15 +41,20 @@ app.get("/", (req, res) => {
 });
 
 //return all movies
-app.get("/movies", (req, res) => {
-  Movies.find()
-    .then((movies) => {
-      res.status(201).json(movies);
-    })
-    .catch((error) => {
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.status(201).json(movies);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 //return movie description by title
 app.get("/movies/:title", (req, res) => {
