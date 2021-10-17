@@ -17,6 +17,8 @@ mongoose.connect("mongodb://localhost:27017/myFlixDB", {
 
 const app = express();
 
+const { check, validationResult } = require("express-validator");
+
 //Middleware
 
 app.use(bodyParser.json());
@@ -27,6 +29,31 @@ require("./passport");
 app.use(morgan("common")); //logs info on server requests
 app.use(express.static("public")); // sets default static path to public,
 //although doesnt seems to work as I cannot get my 'documentation.html' file to load
+
+const cors = require("cors");
+
+check(
+  "Username",
+  "Username contains non-alphanumeric characters - not allowed."
+).isAlphanumeric();
+
+let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        // If a specific origin isn’t found on the list of allowed origins
+        let message =
+          "The CORS policy for this application doesn’t allow access from origin " +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 
 let auth = require("./auth")(app);
 
@@ -118,18 +145,30 @@ app.get(
 );
 
 //Add a user
-/* We’ll expect JSON in this format
-{
-  ID: Integer,
-  Username: String,
-  Password: String,
-  Email: String,
-  Birthday: Date
-}*/
+/* We’ll expect JSON in this format*/
 app.post(
   "/users",
+  // Validation logic here for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+
+  // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.password);
     Users.findOne({ username: req.body.username })
       .then((user) => {
         if (user) {
@@ -137,7 +176,7 @@ app.post(
         } else {
           Users.create({
             username: req.body.username,
-            password: req.body.password,
+            password: hashedPassword,
             email: req.body.email,
             birthday: req.body.birthday,
           })
@@ -194,16 +233,7 @@ app.get(
 );
 
 // Update a user's info, by username
-/* We’ll expect JSON in this format
-{
-  Username: String,
-  (required)
-  Password: String,
-  (required)
-  Email: String,
-  (required)
-  Birthday: Date
-}*/
+
 app.put(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
@@ -298,6 +328,7 @@ app.delete(
 );
 
 // listen for requests
-app.listen(8080, () => {
-  console.log("Your app is listening on port 8080.");
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
