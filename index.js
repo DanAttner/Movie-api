@@ -10,6 +10,7 @@ const Users = Models.User;
 const Directors = Models.Director;
 const Genres = Models.Genre;
 
+//fuck fuck fuck fuck ufkfjasklfjasdjflasdklfj
 //local database connection
 /*
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
