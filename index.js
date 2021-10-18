@@ -158,13 +158,13 @@ app.get(
 app.post(
   "/users",
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check("username", "username is required").isLength({ min: 5 }),
     check(
       "username",
       "username contains non alphanumeric characters - not allowed."
     ).isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail(),
+    check("password", "password is required").not().isEmpty(),
+    check("email", "email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
     // check the validation object for errors
