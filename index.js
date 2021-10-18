@@ -43,8 +43,8 @@ app.use(express.static("public")); // sets default static path to public,
 const cors = require("cors");
 
 check(
-  "Username",
-  "Username contains non-alphanumeric characters - not allowed."
+  "username",
+  "username contains non-alphanumeric characters - not allowed."
 ).isAlphanumeric();
 
 let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
@@ -161,8 +161,8 @@ app.post(
   [
     check("Username", "Username is required").isLength({ min: 5 }),
     check(
-      "Username",
-      "Username contains non alphanumeric characters - not allowed."
+      "username",
+      "username contains non alphanumeric characters - not allowed."
     ).isAlphanumeric(),
     check("Password", "Password is required").not().isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail(),
