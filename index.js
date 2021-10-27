@@ -46,7 +46,7 @@ check(
   "username contains non-alphanumeric characters - not allowed."
 ).isAlphanumeric();
 
-let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+let allowedOrigins = ["http://localhost:8080", "http://localhost:1234"];
 
 app.use(
   cors({
@@ -63,8 +63,6 @@ app.use(
     },
   })
 );
-
-let auth = require("./auth")(app);
 
 //error handeling
 app.use((err, req, res, next) => {
@@ -115,7 +113,7 @@ app.get(
 
 //return data about a genre
 app.get(
-  "/genre/:name",
+  "/genres/:name",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Genres.find({ name: req.params.name })
@@ -135,7 +133,7 @@ app.get(
 
 //returns info about the director
 app.get(
-  "/director/:name",
+  "/directors/:name",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Directors.find({ name: req.params.name })
