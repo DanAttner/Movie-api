@@ -64,6 +64,8 @@ app.use(
   })
 );
 
+let auth = require("./auth")(app);
+
 //error handeling
 app.use((err, req, res, next) => {
   console.error(err.stack);
