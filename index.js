@@ -64,7 +64,7 @@ app.use(
   })
 );
 
-let auth = require("./auth")(app);
+require("./auth")(app);
 
 //error handeling
 app.use((err, req, res, next) => {
@@ -82,7 +82,7 @@ app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Movies.find()
+    Movies.find().populate("genre", "director")
       .then((movies) => {
         res.status(201).json(movies);
       })
@@ -98,7 +98,7 @@ app.get(
   "/movies/:title",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Movies.findOne({ title: req.params.title }).populate("genre")
+    Movies.findOne({ title: req.params.title }).populate("genre", "director")
       .then((movie) => {
         if (movie) {
           return res.status(201).json(movie);
