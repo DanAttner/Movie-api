@@ -46,7 +46,7 @@ check(
   "username contains non-alphanumeric characters - not allowed."
 ).isAlphanumeric();
 
-let allowedOrigins = ["http://localhost:8080", "http://localhost:1234"];
+let allowedOrigins = ["http://localhost:8080", "http://localhost:1234", "http://imdb.com"];
 
 app.use(
   cors({
